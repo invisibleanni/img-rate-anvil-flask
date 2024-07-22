@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+    .training-tips {
+        background-color: #e9ecef;
+        /* Slightly darker than page background for contrast */
+        border-left: 4px solid #007bff;
+        /* Accent color to draw attention */
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .training-tips h4 {
+        margin-top: 0;
+    }
+
+    .training-tips ul {
+        padding-left: 20px;
+    }
+
+    .training-tips li {
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container start-training-container">
+    <h2 class="text-center">Training Session Start</h2>
+    <p>Welcome to the training session. Before we begin, here are a few things to keep in mind:</p>
+    <ul>
+        <li>The training session is designed to familiarize you with the types of images you'll be rating.</li>
+        <li>You'll see examples of both real and fake images.</li>
+        <li>Take your time to carefully review each example, as it will help you during the actual rating process.</li>
+    </ul>
+
+    <div class="container">
+        <p>Please note, the scores you
+            submit
+            here will not be saved.</p>
+        <div class="training-tips">
+            <h4>Rating Tips</h4>
+            <p>As you evaluate each image, consider the following aspects:</p>
+            <ul>
+                <li>How realistic does the image appear?</li>
+                <li>Are there any visible artifacts or inconsistencies?</li>
+                <li>How does the image compare to a real-world counterpart?</li>
+            </ul>
+        </div>
+        <p>When you feel ready, click the button below to start the training.</p>
+
+
+        <div class="text-center">
+            <a href="{{ url_for('training') }}" class="btn btn-primary">Start Training</a>
+        </div>
+    </div>
+    {% endblock %}

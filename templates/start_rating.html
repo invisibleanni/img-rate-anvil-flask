@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2 style="color: #007bff; margin-bottom: 25px;">Image Rating Task</h2>
+    <p style="margin-bottom: 20px;">You're about to begin the image rating task. Remember to use the criteria discussed
+        during the training session when evaluating each image.</p>
+    <p style="margin-bottom: 30px;">Take your time and focus on each image. Your ratings are important to us.</p>
+    <a href="{{ url_for('rate_image') }}" class="btn"
+        style="background-color: #007bff; color: #ffffff; padding: 10px 20px; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">Start
+        Rating</a>
+</div>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+    .questionnaire-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #fff;
+    }
+
+    .questionnaire-title {
+        margin-bottom: 25px;
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .questionnaire-instruction {
+        margin-bottom: 35px;
+        color: #555;
+        font-size: 16px;
+    }
+
+    .question {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .question-input {
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 10px 30px;
+        border-radius: 5px;
+        /* Updated for consistency with other form elements */
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        /* Simplify button appearance */
+        transition: background-color 0.3s, border-color 0.3s;
+        /* Smooth transition for hover effects */
+    }
+
+    .submit-btn:hover,
+    .submit-btn:focus {
+        background-color: #0056b3;
+        outline: none;
+        /* Remove focus outline for clean look */
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container questionnaire-container mt-5">
+
+    <h2 class="text-center questionnaire-title">Questionnaire</h2>
+    <p class="text-center questionnaire-instruction">Please answer the following questions:</p>
+
+
+    <form method="post" class="questionnaire-form">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.age.label(class="form-label") }}
+            {{ form.age(class="form-control", placeholder="Enter your age") }}
+            {% if form.age.errors %}
+            <div class="invalid-feedback" style="display: block;">
+                {% for error in form.age.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <fieldset class="form-group">
+            {{ form.gender.label(class="form-label d-block") }}
+            {% for subfield in form.gender %}
+            <div class="form-check form-check-inline">
+                {{ subfield(class="form-check-input") }} {{ subfield.label(class="form-check-label") }}
+            </div>
+            {% endfor %}
+            {% if form.gender.errors %}
+            <div class="invalid-feedback" style="display: block;">
+                {% for error in form.gender.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </fieldset>
+
+        <fieldset class="form-group">
+            {{ form.vision.label(class="form-label d-block") }}
+            {% for subfield in form.vision %}
+            <div class="form-check form-check-inline">
+                {{ subfield(class="form-check-input") }} {{ subfield.label(class="form-check-label") }}
+            </div>
+            {% endfor %}
+            {% if form.vision.errors %}
+            <div class="invalid-feedback" style="display: block;">
+                {% for error in form.vision.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </fieldset>
+
+
+
+
+
+        <fieldset class="form-group">
+            {{ form.colorblind.label(class="form-label d-block") }}
+            {% for subfield in form.colorblind %}
+            <div class="form-check form-check-inline">
+                {{ subfield(class="form-check-input") }} {{ subfield.label(class="form-check-label") }}
+            </div>
+            {% endfor %}
+            {% if form.colorblind.errors %}
+            <div class="invalid-feedback" style="display: block;">
+                {% for error in form.colorblind.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </fieldset>
+
+
+        <fieldset class="form-group">
+            {{ form.aiexposure.label(class="form-label d-block") }}
+            {% for subfield in form.aiexposure %}
+            <div class="form-check form-check-inline">
+                {{ subfield(class="form-check-input") }} {{ subfield.label(class="form-check-label") }}
+            </div>
+            {% endfor %}
+            {% if form.aiexposure.errors %}
+            <div class="invalid-feedback" style="display: block;">
+                {% for error in form.aiexposure.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </fieldset>
+
+
+
+        <div class="form-group text-center">
+            {{ form.submit(class="btn submit-btn") }} <!-- Updated class reference -->
+        </div>
+
+
+
+
+    </form>
+</div>
+{% endblock %}

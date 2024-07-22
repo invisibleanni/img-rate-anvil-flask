@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-4">
+    <h2>Welcome to the Image Rating Research</h2>
+    <p class="mt-4">You will be shown a series of images and asked to rate them. Please follow the instructions for each
+        section carefully.</p>
+    <!-- <a href="{{ url_for('questionnaire') }}" class="btn btn-primary mt-3">Proceed to Questionnaire</a> -->
+    <!-- Or direct them straight to the image rating phase if no questionnaire -->
+    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary">Proceed to Questionnaire</a>
+
+</div>
+{% endblock %}

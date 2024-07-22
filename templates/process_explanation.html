@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color: #007bff;">Welcome to the Image Rating Process</h1>
+    <p class="mb-4">This guide will walk you through the steps you'll be taking as part of this study.</p>
+
+    <ol class="mb-4">
+        <li>
+            <strong>Questionnaire:</strong> You'll start with a brief questionnaire to gather some initial information.
+        </li>
+        <li>
+            <strong>Training Start Screen:</strong> A screen will inform you when the training session is about to
+            start.
+        </li>
+        <li>
+            <strong>Training Session:</strong> You'll go through a training session to familiarize yourself with the
+            user interface and the task.
+        </li>
+        <li>
+            <strong>End of Training Screen:</strong> After completing the training, you'll see a screen indicating the
+            end of the training session.
+        </li>
+        <li>
+            <strong>Rating Start Screen:</strong> Another screen will indicate the beginning of the actual image rating
+            process.
+        </li>
+        <li>
+            <strong>Rating Process:</strong> You'll rate a series of images based on the criteria provided during
+            training.
+        </li>
+        <li>
+            <strong>Completion:</strong> Once all images have been rated, you'll see a completion screen thanking you
+            for your participation.
+        </li>
+    </ol>
+    <br><br>
+    <p class="mb-4">Click the button below to start the questionnaire:</p>
+    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary">Start Questionnaire</a>
+</div>
+{% endblock %}

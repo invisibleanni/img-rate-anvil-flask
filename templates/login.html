@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm"> <!-- Added shadow for depth -->
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4" style="color: #007bff;">Participant Login</h2>
+                    <form action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
+
+
+
+
+
+                        <div class="form-group">
+                            {{ form.unique_id.label(class="form-label") }}
+                            {{ form.unique_id(class="form-control", placeholder="Enter your unique ID") }}
+                            {% if form.unique_id.errors %}
+                            <div class="invalid-feedback" style="display: block;">
+                                {% for error in form.unique_id.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.session_id.label(class="form-label") }}
+                            {{ form.session_id(class="form-control", placeholder="Enter your Session ID") }}
+                            {% if form.session_id.errors %}
+                            <div class="invalid-feedback" style="display: block;">
+                                {% for error in form.session_id.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+
+
+
+
+
+                        <div class="form-group text-center mt-4">
+                            {{ form.submit(class="btn btn-primary btn-block") }}
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            <p class="text-center mt-4" style="font-size: 1.2rem; color: #777E8f;">
+                Quantifying Realness: A Novel Dataset and<br>
+                Approach for Evaluating AI-Generated Image Authenticity
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

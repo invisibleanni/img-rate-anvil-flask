@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Session Complete</h2>
+    <br><br>
+    <h3>Thank You for Your Participation</h3>
+    
+
+    
+    <!-- Button to end session -->
+    <div class="mt-4">
+        <a href="{{ url_for('end_session') }}" class="btn btn-danger">End Session and Logout</a>
+    </div>
+</div>
+{% endblock %}

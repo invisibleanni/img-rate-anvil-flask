@@ -1,0 +1,5 @@
+age: 45
+Gender: M
+Vision: No not Normal
+Color: Yes CB
+AI Exposure: No Exposure

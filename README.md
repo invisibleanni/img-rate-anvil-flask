@@ -1,1 +1,1 @@
-# img-rate-anvil-flask
+# image-rate

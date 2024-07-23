@@ -4,7 +4,8 @@ import csv
 from forms import LoginForm, QuestionnaireForm  # Make sure to import your LoginForm
 import random
 import copy
-import pandas as pd
+import pandas as pd, os
+from pymongo import MongoClient
 
 
 ROUND_ROBIN_CSV_FILE_PATH = "round_robin__melted_50p_2s_120f_30r_Shuffled_Exploded.csv"
@@ -15,6 +16,12 @@ app = Flask(__name__)
 
 # We need a secret key for the session...
 app.config["SECRET_KEY"] = ("a3c2c89e8d2be872c1362d323970a90d5e15f9ecafec2f789ca256394660186b")
+
+
+# MongoDB setup
+client = MongoClient(os.environ['MONGODB_URI'])
+db = client.your_database_name
+
 
 @app.route("/")
 def hello(): # we go to login-directly
@@ -64,11 +71,14 @@ def questionnaire():
             "AI Exposure": f"{form.aiexposure.data}",
         }
 
-        filename = f"{session['participant_id']}_questionnaire_responses.txt"
+        # filename = f"./{session['participant_id']}_questionnaire_responses.txt"
 
-        with open(filename, "w") as file:
-            for question, response in responses.items():
-                file.write(f"{question}: {response}\n")
+        # with open(filename, "w") as file:
+        #     for question, response in responses.items():
+        #         file.write(f"{question}: {response}\n")
+        
+
+        db.questionnaire_responses.insert_one(responses)
 
         # start the training of the individual once the responses are recorded in a text file
         return redirect(url_for("start_training"))
@@ -146,18 +156,28 @@ def rate_image():
         if current_image_index < len(images):
             img = images.iloc[current_image_index]["img"]
             # Write the rating to CSV
-            with open("ratings.csv", mode="a", newline="") as file:
-                writer = csv.writer(file)
-                writer.writerow(
-                    [
-                        p_id,
-                        sess,
-                        img,
-                        rating,
-                        time_spent,
-                        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    ]
-                )
+            # with open("ratings.csv", mode="a", newline="") as file:
+            #     writer = csv.writer(file)
+            #     writer.writerow(
+            #         [
+            #             p_id,
+            #             sess,
+            #             img,
+            #             rating,
+            #             time_spent,
+            #             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            #         ]
+            #     )
+
+            rating_data = {
+                "participant_id": p_id,
+                "session_id": sess,
+                "image": img,
+                "rating": rating,
+                "time_spent": time_spent,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            db.ratings.insert_one(rating_data)
 
             session["images_rated"].append(img)
 

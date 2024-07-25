@@ -6,20 +6,38 @@ import random
 import copy
 import pandas as pd, os
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import logging
 
 
 ROUND_ROBIN_CSV_FILE_PATH = "round_robin__melted_50p_2s_120f_30r_Shuffled_Exploded.csv"
 
+load_dotenv()
 
 ## initialising the app
 app = Flask(__name__)
 
 # We need a secret key for the session...
-app.config["SECRET_KEY"] = ("a3c2c89e8d2be872c1362d323970a90d5e15f9ecafec2f789ca256394660186b")
+app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
 
 # MongoDB setup
-client = MongoClient(os.environ['MONGODB_URI'])
+# client = MongoClient(os.environ['MONGODB_URI'])
+
+mongodb_uri = os.getenv('MONGODB_URI')
+client = MongoClient(mongodb_uri)
+
+
+print(f"MongoDB URI: {mongodb_uri.replace('//<username>:<password>@', '//<username>:****@')}")
+
+
+try:
+    client = MongoClient(os.getenv('MONGODB_URI'))
+    client.admin.command('ping')
+    print("MongoDB connection successful!")
+except Exception as e:
+    print(f"MongoDB connection failed: {e}")
+
 db = client.your_database_name
 
 
@@ -213,5 +231,21 @@ def end_session():
     return "bye"
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+else:
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/app.log', maxBytes=10240, backupCount=10)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('App startup')
